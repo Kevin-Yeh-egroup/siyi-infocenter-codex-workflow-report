@@ -57,21 +57,21 @@
 - `robots.txt`: `User-agent: *` and `Disallow: /`
 - Note: share the public stable URL, not the protected team-scoped alias.
 
-## External Publishing Gate
+## Completed External Publishing Approvals
 
-Before creating a public GitHub repo or deploying to Vercel, Kevin needs to approve:
+Kevin approved:
 
-1. The content is acceptable for public-link viewing.
-2. The GitHub owner and repo name.
-3. Whether the deployment should be public Production with noindex or private-preview/protected.
+1. Public GitHub repository publication.
+2. Repository name: `siyi-infocenter-codex-workflow-report`.
+3. Vercel Production deployment with noindex controls retained.
 
-Suggested public repo name:
+Public repo name:
 
 ```text
 siyi-infocenter-codex-workflow-report
 ```
 
-Suggested deployment profile:
+Deployment profile:
 
 ```text
 public-with-noindex review

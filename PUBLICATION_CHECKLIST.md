@@ -5,11 +5,11 @@
 - Artifact name: 思宜需求分析與 Codex 自動化任務規劃
 - Local entry: `index.html`
 - Source note: `siyi-requirements-analysis.md`
-- Status: `publish-ready draft`
+- Status: `published production`
 
 ## Sensitivity
 
-- Proposed profile: public-with-noindex review, pending Kevin approval
+- Profile: public production with noindex controls
 - External visibility risk: public GitHub repo and public Vercel URL are readable by anyone with access to the repo or URL
 - Access control: none
 

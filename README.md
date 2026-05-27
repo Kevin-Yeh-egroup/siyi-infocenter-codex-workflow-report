@@ -13,7 +13,7 @@
 
 ## 發布狀態
 
-目前狀態：`publish-ready draft`
+目前狀態：`published production`
 
 搜尋索引控制已啟用：
 
@@ -21,4 +21,4 @@
 - `robots.txt`: `Disallow: /`
 - Vercel header: `X-Robots-Tag: noindex, nofollow, noarchive`
 
-注意：這些設定不是權限控管。若內容不能被非預期讀者看到，請改用 private-preview 或保留本機。
+公開網址：<https://siyi-infocenter-codex-workflow-repo.vercel.app>
