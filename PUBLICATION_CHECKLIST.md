@@ -21,15 +21,15 @@
 
 ## Approval Gates
 
-- [ ] Kevin approves public GitHub repository creation
-- [ ] Kevin approves pushing this content to GitHub
-- [ ] Kevin approves Vercel deployment
-- [ ] Kevin confirms whether URL may be shared with others
+- [x] Kevin approves public GitHub repository creation
+- [x] Kevin approves pushing this content to GitHub
+- [x] Kevin approves Vercel deployment
+- [x] Kevin confirms whether URL may be shared with others
 
 ## Verification To Run After Deployment
 
-- [ ] HTTP status returns `200 OK`
-- [ ] Response headers include `X-Robots-Tag: noindex, nofollow, noarchive`
-- [ ] Page source includes meta robots noindex
-- [ ] `/robots.txt` returns `Disallow: /`
+- [x] HTTP status returns `200 OK`
+- [x] Response headers include `X-Robots-Tag: noindex, nofollow, noarchive`
+- [x] Page source includes meta robots noindex
+- [x] `/robots.txt` returns `Disallow: /`
 - [ ] Mobile and desktop layout checked
