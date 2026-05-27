@@ -26,6 +26,15 @@
 - Push result: `remote: Repository not found.`
 - Interpretation: the public repo still needs to be created before local `main` can be pushed.
 
+## GitHub Publication
+
+- Repo created by Kevin: yes
+- Visibility: public
+- Default branch: `main`
+- Push result: local `main` pushed to `origin/main`
+- Published commit: `19d3a69`
+- GitHub URL: `https://github.com/Kevin-Yeh-egroup/siyi-infocenter-codex-workflow-report`
+
 ## External Publishing Gate
 
 Before creating a public GitHub repo or deploying to Vercel, Kevin needs to approve:
