@@ -69,6 +69,20 @@ if (-not $npx) { throw 'npx.cmd not found.' }
 Push-Location $root
 try {
   $env:VERCEL_TOKEN = $token
+  npx.cmd --yes vercel@latest project inspect $ProjectName --scope $Scope --non-interactive | Out-Null
+  if ($LASTEXITCODE -ne 0) {
+    Write-Host "Creating Vercel project: $ProjectName"
+    npx.cmd --yes vercel@latest project add $ProjectName --scope $Scope --non-interactive
+    if ($LASTEXITCODE -ne 0) {
+      throw "Vercel project creation failed with exit code $LASTEXITCODE."
+    }
+  }
+
+  npx.cmd --yes vercel@latest link --yes --team $Scope --project $ProjectName
+  if ($LASTEXITCODE -ne 0) {
+    throw "Vercel project link failed with exit code $LASTEXITCODE."
+  }
+
   npx.cmd --yes vercel@latest deploy --prod --yes --scope $Scope --project $ProjectName
   if ($LASTEXITCODE -ne 0) {
     throw "Vercel production deploy failed with exit code $LASTEXITCODE."
