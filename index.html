@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>思宜需求分析與 Codex 自動化任務規劃</title>
+  <style>
+    :root {
+      --ink: #17211b;
+      --muted: #5b6b62;
+      --line: #d9e2dc;
+      --paper: #fbfcf9;
+      --surface: #ffffff;
+      --green: #176b4d;
+      --teal: #0a6c74;
+      --gold: #9b6b14;
+      --rose: #9f3d45;
+      --blue: #2f5f9f;
+      --soft-green: #e9f5ef;
+      --soft-teal: #e6f5f6;
+      --soft-gold: #fff3d8;
+      --soft-rose: #fbe9ea;
+      --shadow: 0 14px 38px rgba(24, 44, 31, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", system-ui, sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--teal);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .site-header {
+      border-bottom: 1px solid var(--line);
+      background: rgba(251, 252, 249, 0.94);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav {
+      align-items: center;
+      display: flex;
+      gap: 18px;
+      justify-content: space-between;
+      margin: 0 auto;
+      max-width: 1160px;
+      padding: 12px 22px;
+    }
+
+    .brand {
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 5px 10px;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      background: var(--soft-teal);
+      color: var(--teal);
+    }
+
+    .hero {
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(23, 107, 77, 0.12), transparent 32%),
+        linear-gradient(315deg, rgba(155, 107, 20, 0.12), transparent 34%),
+        var(--paper);
+    }
+
+    .hero-inner {
+      display: grid;
+      gap: 30px;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      margin: 0 auto;
+      max-width: 1160px;
+      padding: 58px 22px 48px;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0;
+      margin: 0 0 12px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 58px);
+      line-height: 1.12;
+      margin: 0;
+      max-width: 900px;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 19px;
+      margin: 20px 0 0;
+      max-width: 780px;
+    }
+
+    .hero-panel {
+      align-self: end;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .hero-panel h2 {
+      font-size: 17px;
+      margin: 0 0 12px;
+    }
+
+    .hero-panel ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .hero-panel li + li {
+      margin-top: 7px;
+    }
+
+    main {
+      margin: 0 auto;
+      max-width: 1160px;
+      padding: 34px 22px 80px;
+    }
+
+    section {
+      margin-top: 52px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    h2 {
+      font-size: 29px;
+      line-height: 1.25;
+      margin: 0 0 16px;
+    }
+
+    h3 {
+      font-size: 21px;
+      line-height: 1.3;
+      margin: 28px 0 12px;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    .section-kicker {
+      color: var(--muted);
+      margin-bottom: 24px;
+      max-width: 780px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .tag {
+      border-radius: 999px;
+      display: inline-flex;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      padding: 4px 10px;
+    }
+
+    .tag.green {
+      background: var(--soft-green);
+      color: var(--green);
+    }
+
+    .tag.teal {
+      background: var(--soft-teal);
+      color: var(--teal);
+    }
+
+    .tag.gold {
+      background: var(--soft-gold);
+      color: var(--gold);
+    }
+
+    .tag.rose {
+      background: var(--soft-rose);
+      color: var(--rose);
+    }
+
+    .flow {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .flow-row {
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 170px 1fr 220px;
+      padding: 14px 18px;
+    }
+
+    .flow-row:last-child {
+      border-bottom: 0;
+    }
+
+    .flow-step {
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .flow-action {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .phase {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--green);
+      border-radius: 8px;
+      padding: 18px 20px;
+    }
+
+    .phase strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .priority-table,
+    .rules-table {
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      display: block;
+      overflow-x: auto;
+      width: 100%;
+    }
+
+    table {
+      border-collapse: collapse;
+      min-width: 760px;
+      width: 100%;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f6f2;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .callout {
+      background: #f2f8f5;
+      border: 1px solid #c7dfd2;
+      border-radius: 8px;
+      padding: 18px 20px;
+    }
+
+    .warning {
+      background: #fff6df;
+      border-color: #ead79d;
+    }
+
+    .questions {
+      columns: 2;
+      column-gap: 36px;
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    .questions li {
+      break-inside: avoid;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 64px;
+      padding-top: 18px;
+    }
+
+    @media (max-width: 860px) {
+      .hero-inner,
+      .grid.cols-2,
+      .grid.cols-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .flow-row {
+        grid-template-columns: 1fr;
+      }
+
+      .questions {
+        columns: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="頁面導覽">
+      <div class="brand">思宜需求分析</div>
+      <div class="nav-links">
+        <a href="#summary">摘要</a>
+        <a href="#flow">流程</a>
+        <a href="#automation">Codex 任務</a>
+        <a href="#solutions">解法</a>
+        <a href="#questions">待確認</a>
+      </div>
+    </nav>
+  </header>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">InfoCenter / LINE / 引導員電訪 / 信扶系統</p>
+        <h1>思宜需求分析與 Codex 自動化任務規劃</h1>
+        <p class="lead">把訪談逐字稿轉成可討論、可驗證、可逐步自動化的工作流草案。重點不是直接替人判斷個案，而是讓每天該追蹤、該檢查、該匯入的資料浮上來。</p>
+      </div>
+      <aside class="hero-panel" aria-label="建議方向">
+        <h2>建議先做的 MVP</h2>
+        <ol>
+          <li>每日提醒清單</li>
+          <li>欄位檢查與衝突報告</li>
+          <li>信扶上傳模板產生器</li>
+        </ol>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section id="summary">
+      <h2>一頁摘要</h2>
+      <p class="section-kicker">思宜的工作橫跨多個系統與多個角色。最有價值的自動化，不是讓 AI 主動對外處理個案，而是把分散資訊整理成可行動清單。</p>
+      <div class="grid cols-2">
+        <article class="card">
+          <span class="tag green">核心需求</span>
+          <h3>今天該看誰、該追誰、誰有新狀態</h3>
+          <p>同意書、LINE 驗證、說明會、引導員電訪與匯入狀態散在不同地方，Codex 可以先扮演每日盤點與比對助手。</p>
+        </article>
+        <article class="card">
+          <span class="tag teal">自動化邊界</span>
+          <h3>讀取與提醒優先，外部寫入保留人工核准</h3>
+          <p>LINE 發送、個案取消、資格判定、正式上傳與系統回寫都應該先停在人工確認點。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="flow">
+      <h2>工作流程拆解</h2>
+      <p class="section-kicker">從自行報名到信扶系統匯入，可以切成四段：同意書與 LINE、初步資格與說明會、引導員電訪追蹤、信扶匯入與回寫。</p>
+      <div class="flow" role="list">
+        <div class="flow-row" role="listitem">
+          <div class="flow-step">1. 自行報名</div>
+          <div>網站報名後，宇宏匯入 InfoCenter 並開同意書事件，系統發送簡訊。</div>
+          <div class="flow-action">可產出：同意書待追清單</div>
+        </div>
+        <div class="flow-row" role="listitem">
+          <div class="flow-step">2. LINE 驗證</div>
+          <div>個案回覆同意書後加入官方 LINE，系統驗證姓名與電話，InfoCenter 顯示 LINE 狀態。</div>
+          <div class="flow-action">可產出：未驗證/新驗證清單</div>
+        </div>
+        <div class="flow-row" role="listitem">
+          <div class="flow-step">3. 初步判斷</div>
+          <div>思宜確認子女學齡、同住、特殊境遇、警示帳戶、是否參加說明會或看短片。</div>
+          <div class="flow-action">可產出：關鍵欄位提醒</div>
+        </div>
+        <div class="flow-row" role="listitem">
+          <div class="flow-step">4. 引導員電訪</div>
+          <div>有意願名單派案後，引導員應在期限內完成第一次聯繫與電訪，並填寫結果。</div>
+          <div class="flow-action">可產出：新完成/逾期未完成清單</div>
+        </div>
+        <div class="flow-row" role="listitem">
+          <div class="flow-step">5. 匯入信扶</div>
+          <div>思宜人工確認可匯入名單，整理欄位、上傳信扶系統，再回寫匯入日期與狀態。</div>
+          <div class="flow-action">可產出：上傳模板與驗證報告</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="needs">
+      <h2>需求切片</h2>
+      <div class="grid cols-3">
+        <article class="card">
+          <span class="tag green">A</span>
+          <h3>同意書與 LINE</h3>
+          <p>目前沒有新加入或新回覆通知，需要每日列出已回覆未驗證、已驗證待回覆、未參加說明會但可能仍有意願者。</p>
+        </article>
+        <article class="card">
+          <span class="tag gold">B</span>
+          <h3>欄位正確性</h3>
+          <p>比起自動回覆，思宜更明確需要欄位檢查：身分證與性別、警示帳戶、特殊境遇、子女學齡與同住、評論與背景欄位衝突。</p>
+        </article>
+        <article class="card">
+          <span class="tag teal">C</span>
+          <h3>電訪追蹤</h3>
+          <p>不能只看電訪欄位有沒有值，因為思宜或其他內部角色也會填。需要用歷史紀錄、最後填寫者、派案狀態與日期一起判斷。</p>
+        </article>
+        <article class="card">
+          <span class="tag rose">D</span>
+          <h3>信扶匯入</h3>
+          <p>目前最大手工成本在欄位刪減、貼上、對齊與匯入後回寫。這適合做成模板產生器與驗證報告。</p>
+        </article>
+        <article class="card">
+          <span class="tag green">E</span>
+          <h3>提醒而非查詢</h3>
+          <p>思宜要的不是多功能查詢，而是關鍵條件出現時自動浮出名單，降低她每天逐頁檢查的成本。</p>
+        </article>
+        <article class="card">
+          <span class="tag teal">F</span>
+          <h3>人工判斷保留</h3>
+          <p>資格說明、個案意願、特殊情境處理仍需要人判斷。Codex 應該協助整理與預檢，不應直接做結論。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="automation">
+      <h2>Codex 自動化任務規劃</h2>
+      <p class="section-kicker">建議用階段式導入，從不寫入任何外部系統的讀取型報告開始，規則穩定後再進入半自動回寫。</p>
+      <div class="timeline">
+        <div class="phase">
+          <strong>Phase 0：盤點與規則定義</strong>
+          <p>整理 InfoCenter 匯出欄位、信扶上傳模板、引導員表、LINE 狀態與歷史紀錄樣本，建立欄位 mapping 與排除規則。</p>
+        </div>
+        <div class="phase">
+          <strong>Phase 1：每日讀取型提醒報告</strong>
+          <p>每天產生同意書/LINE、警示帳戶、特殊境遇、引導員新完成、逾期未完成、欄位衝突等清單。</p>
+        </div>
+        <div class="phase">
+          <strong>Phase 2：資料品質檢查器</strong>
+          <p>檢查身分證/性別一致性、必問欄位、評論未回填、事件未開、無意願或三通未接是否應排除。</p>
+        </div>
+        <div class="phase">
+          <strong>Phase 3：信扶上傳模板產生器</strong>
+          <p>依據待匯入名單與欄位對照表產生可上傳 Excel/CSV，同時輸出缺值、格式錯、需人工判斷欄位。</p>
+        </div>
+        <div class="phase">
+          <strong>Phase 4：人工核准式外部系統更新</strong>
+          <p>在規則穩定後，Codex 可協助開系統、預填匯入日期或狀態，但送出前需要人工確認。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules">
+      <h2>提醒規則草案</h2>
+      <div class="rules-table">
+        <table>
+          <thead>
+            <tr>
+              <th>清單</th>
+              <th>判斷條件</th>
+              <th>用途</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>今日新同意書回覆</td>
+              <td>新增同意書回覆，但尚未完成下一步</td>
+              <td>追 LINE 或說明會狀態</td>
+            </tr>
+            <tr>
+              <td>已回覆但未 LINE 驗證</td>
+              <td>同意書完成，LINE 狀態未綠燈</td>
+              <td>補追加入 LINE 或姓名電話驗證</td>
+            </tr>
+            <tr>
+              <td>警示帳戶</td>
+              <td>欄位顯示警示帳戶</td>
+              <td>優先電話聯繫</td>
+            </tr>
+            <tr>
+              <td>引導員新完成電訪</td>
+              <td>電訪欄位由引導員更新，且昨日沒有</td>
+              <td>提醒思宜檢查資料</td>
+            </tr>
+            <tr>
+              <td>逾期未完成電訪</td>
+              <td>派案超過規定天數仍無引導員電訪結果</td>
+              <td>催辦或追蹤引導員</td>
+            </tr>
+            <tr>
+              <td>欄位/評論衝突</td>
+              <td>背景欄位與電訪評論不一致，或評論有資料但欄位空白</td>
+              <td>人工修正與補資料</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="solutions">
+      <h2>可能解決方案</h2>
+      <div class="grid cols-2">
+        <article class="card">
+          <span class="tag green">先做</span>
+          <h3>Google Sheet / Excel 版提醒儀表板</h3>
+          <p>每天把匯出檔與引導員表放入固定資料夾，Codex 比對昨日快照並產出報告。優點是權限風險低、容易核對規則。</p>
+        </article>
+        <article class="card">
+          <span class="tag teal">MVP 後</span>
+          <h3>InfoCenter + Sheets 半自動監控</h3>
+          <p>由 Codex 讀取 InfoCenter 與表單，保存每日快照，辨識新完成與逾期未完成。需要先確認登入與欄位穩定性。</p>
+        </article>
+        <article class="card">
+          <span class="tag gold">高價值</span>
+          <h3>信扶匯入模板產生器</h3>
+          <p>建立 InfoCenter 到信扶模板的欄位 mapping，直接產生可上傳檔與錯誤報告，減少貼錯與欄位對齊成本。</p>
+        </article>
+        <article class="card">
+          <span class="tag rose">後期</span>
+          <h3>人工核准式瀏覽器助手</h3>
+          <p>Codex 預填外部系統欄位，在送出前停下讓思宜確認。適合規則穩定後導入。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="priority">
+      <h2>建議優先順序</h2>
+      <div class="priority-table">
+        <table>
+          <thead>
+            <tr>
+              <th>優先</th>
+              <th>項目</th>
+              <th>原因</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>P0</td>
+              <td>每日引導員電訪變更/逾期提醒</td>
+              <td>思宜明確說目前沒有時間追，且引導員不主動回報。</td>
+            </tr>
+            <tr>
+              <td>P0</td>
+              <td>信扶上傳模板產生器</td>
+              <td>手工欄位對齊高耗時且高錯誤率。</td>
+            </tr>
+            <tr>
+              <td>P1</td>
+              <td>欄位正確性與衝突檢查</td>
+              <td>思宜明確覺得這塊比 LINE 自動化更適合。</td>
+            </tr>
+            <tr>
+              <td>P1</td>
+              <td>同意書/LINE/說明會狀態清單</td>
+              <td>有幫助，但前段仍需要大量人工判斷。</td>
+            </tr>
+            <tr>
+              <td>P2</td>
+              <td>自動開事件/回寫狀態</td>
+              <td>有價值，但要等規則穩定與權限確認。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="questions">
+      <h2>需要再確認的問題</h2>
+      <ol class="questions">
+        <li>InfoCenter 中各狀態與欄位的實際名稱是什麼？</li>
+        <li>歷史紀錄是否能看到更新者、更新時間、更新欄位、更新前後值？</li>
+        <li>哪些帳號或角色算是引導員？哪些算是思宜或內部人員？</li>
+        <li>引導員完成電訪的精準條件是什麼？</li>
+        <li>逾期規則是派案後 7 天、第一次聯繫後 7 天，還是其他日期基準？</li>
+        <li>信扶上傳模板的固定欄位與必填欄位有哪些？</li>
+        <li>哪些匯入欄位需要人工判斷，不能完全 mapping？</li>
+        <li>上傳後需要回寫哪些系統欄位？</li>
+        <li>是否可以先用去識別化樣本檔測試？</li>
+        <li>報告要給思宜在哪裡看最方便？</li>
+      </ol>
+    </section>
+
+    <section id="risk">
+      <h2>發布與權限邊界</h2>
+      <div class="callout warning">
+        <p><strong>目前建議狀態：publish-ready，本機審核完成後再決定是否公開。</strong></p>
+        <p>如果要建立 public GitHub repo 或 Vercel Production URL，請先確認這份內容可被非預期讀者看到。`noindex`、`robots.txt` 與 Vercel header 只降低搜尋曝光，不是存取控制。</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>來源：訪談逐字稿與會後紀錄。版本：publish-ready draft。搜尋索引：noindex / nofollow / noarchive。</p>
+    </footer>
+  </main>
+</body>
+</html>
