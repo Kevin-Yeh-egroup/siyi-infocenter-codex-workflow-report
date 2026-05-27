@@ -394,7 +394,9 @@
       <div class="nav-links">
         <a href="#summary">摘要</a>
         <a href="#flow">流程</a>
+        <a href="#current-workflow">現況</a>
         <a href="#automation">Codex 任務</a>
+        <a href="#optimization">優化</a>
         <a href="#solutions">解法</a>
         <a href="#questions">待確認</a>
       </div>
@@ -501,6 +503,80 @@
           <span class="tag teal">F</span>
           <h3>人工判斷保留</h3>
           <p>資格說明、個案意願、特殊情境處理仍需要人判斷。Codex 應該協助整理與預檢，不應直接做結論。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="current-workflow">
+      <h2>思宜目前工作流程</h2>
+      <p class="section-kicker">從訪談來看，思宜的工作不是單一查詢或單一通知，而是一條跨 InfoCenter、LINE、引導員表單與信扶系統的接力流程。每一步都有人工判斷點，所以自動化應該先協助整理狀態，而不是直接替她做決定。</p>
+      <div class="flow" role="list">
+        <div class="flow-row" role="listitem">
+          <div class="flow-step">1. 報名與同意書</div>
+          <div>雨虹將網站報名資料匯入系統並開同意書事件，簡訊通知個案在期限前回覆輔導同意書。</div>
+          <div class="flow-action">思宜要追：誰回覆、誰逾期、誰需要下一步。</div>
+        </div>
+        <div class="flow-row" role="listitem">
+          <div class="flow-step">2. LINE 加入與驗證</div>
+          <div>個案依照最後畫面加入官方 LINE，回覆姓名與電話；驗證成功後 InfoCenter 的 LINE 狀態會連結成綠色。</div>
+          <div class="flow-action">痛點：沒有主動通知，需要人工反覆查看。</div>
+        </div>
+        <div class="flow-row" role="listitem">
+          <div class="flow-step">3. 說明會與初篩</div>
+          <div>思宜確認是否參加說明會；未參加者會詢問原因、口頭說明或提供短片。她也會固定詢問子女學齡與是否同住。</div>
+          <div class="flow-action">判斷點：是否了解專案、是否仍有意願。</div>
+        </div>
+        <div class="flow-row" role="listitem">
+          <div class="flow-step">4. 關鍵欄位確認</div>
+          <div>看到特殊境遇家庭時會詢問是否有社會局公文；看到警示帳戶時通常直接電話說明，因為會影響貸款相關資源。</div>
+          <div class="flow-action">可協助：把警示帳戶與特殊欄位浮出來。</div>
+        </div>
+        <div class="flow-row" role="listitem">
+          <div class="flow-step">5. 派案與電訪追蹤</div>
+          <div>有意願者由相關窗口派案給引導員。引導員完成第一次聯繫與電訪後，思宜要檢查電訪結果、評論與 InfoCenter 背景欄位是否一致。</div>
+          <div class="flow-action">痛點：20 多位引導員不一定主動回報。</div>
+        </div>
+        <div class="flow-row" role="listitem">
+          <div class="flow-step">6. 匯入信扶系統</div>
+          <div>思宜確認可匯入名單後，從 InfoCenter 勾選下載資料，整理成信扶上傳模板，上傳後再回寫匯入日期、狀態與相關欄位。</div>
+          <div class="flow-action">高耗時點：欄位刪減、對齊、格式確認。</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="optimization">
+      <h2>優化可能性判斷</h2>
+      <p class="section-kicker">有優化空間，而且最值得做的不是直接取代思宜，而是把她每天需要人工掃描的資料改成「自動整理好的待處理清單」。</p>
+      <div class="grid cols-3">
+        <article class="card">
+          <span class="tag green">高優先</span>
+          <h3>每日變更提醒</h3>
+          <p>比對昨日與今日資料，列出新回覆同意書、LINE 未驗證、引導員新完成電訪、逾期未完成電訪。這能直接減少反覆開系統查看的時間。</p>
+        </article>
+        <article class="card">
+          <span class="tag gold">高優先</span>
+          <h3>欄位品質檢查</h3>
+          <p>檢查身分證與性別、特殊境遇、警示帳戶、評論與背景欄位衝突、評論有資料但欄位空白等狀況。</p>
+        </article>
+        <article class="card">
+          <span class="tag teal">高優先</span>
+          <h3>匯入模板產生器</h3>
+          <p>把 InfoCenter 匯出資料依照信扶模板自動對欄、產生可上傳檔，並附上錯誤與需人工判斷欄位。</p>
+        </article>
+        <article class="card">
+          <span class="tag green">可後續</span>
+          <h3>訊息草稿與事件草稿</h3>
+          <p>對常見情境產生 LINE 回覆草稿、事件開立草稿或回寫清單，但仍由思宜確認後送出。</p>
+        </article>
+        <article class="card">
+          <span class="tag rose">暫不建議</span>
+          <h3>全自動回覆或資格判定</h3>
+          <p>前段有大量個案情境與人工判斷，不建議一開始讓 AI 自動回覆 LINE、自動取消個案或自動判定資格。</p>
+        </article>
+        <article class="card">
+          <span class="tag teal">導入方式</span>
+          <h3>先做讀取型 MVP</h3>
+          <p>第一階段只產出報告與上傳檔，不改外部系統；用 1 至 2 週核對誤報與漏報，再決定是否進入半自動回寫。</p>
         </article>
       </div>
     </section>
