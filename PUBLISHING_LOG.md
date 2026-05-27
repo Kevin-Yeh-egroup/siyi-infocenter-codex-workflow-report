@@ -15,8 +15,16 @@
 - Local git repo: created
 - Static site package: created
 - Noindex controls: enabled
-- External GitHub repo: not created yet
+- External GitHub repo: not created yet; `origin` points to the intended repo URL
 - Vercel deployment: not created yet
+
+## GitHub Attempt
+
+- Intended repo: `Kevin-Yeh-egroup/siyi-infocenter-codex-workflow-report`
+- Remote URL: `https://github.com/Kevin-Yeh-egroup/siyi-infocenter-codex-workflow-report.git`
+- Check result: GitHub connector returned `404 Not Found`
+- Push result: `remote: Repository not found.`
+- Interpretation: the public repo still needs to be created before local `main` can be pushed.
 
 ## External Publishing Gate
 
@@ -49,7 +57,6 @@ public-with-noindex review
 If Kevin approves public GitHub + Vercel:
 
 1. Create the public GitHub repo manually or provide an existing empty repo.
-2. Add it as `origin`.
-3. Push local `main`.
+2. Push local `main` to the already configured `origin`.
 4. Deploy to Vercel Production.
 5. Verify `200 OK`, `X-Robots-Tag`, HTML meta robots, and `robots.txt`.
