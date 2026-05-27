@@ -460,8 +460,8 @@
         </div>
         <div class="flow-row" role="listitem">
           <div class="flow-step">4. 引導員電訪</div>
-          <div>有意願名單派案後，引導員應在期限內完成第一次聯繫與電訪，並填寫結果。</div>
-          <div class="flow-action">可產出：新完成/逾期未完成清單</div>
+          <div>有意願名單派案後，引導員應在期限內完成第一次聯繫與電訪，結果除了進 InfoCenter，也需要回填 Google Sheet 作為引導員通知與追蹤依據。</div>
+          <div class="flow-action">可產出：新完成/逾期未完成/Google Sheet 待更新清單</div>
         </div>
         <div class="flow-row" role="listitem">
           <div class="flow-step">5. 匯入信扶</div>
@@ -509,7 +509,7 @@
 
     <section id="current-workflow">
       <h2>思宜目前工作流程</h2>
-      <p class="section-kicker">從訪談來看，思宜的工作不是單一查詢或單一通知，而是一條跨 InfoCenter、LINE、引導員表單與信扶系統的接力流程。每一步都有人工判斷點，所以自動化應該先協助整理狀態，而不是直接替她做決定。</p>
+      <p class="section-kicker">從訪談來看，思宜的工作不是單一查詢或單一通知，而是一條跨 InfoCenter、LINE、Google Sheet 引導員通知表與信扶系統的接力流程。每一步都有人工判斷點，所以自動化應該先協助整理狀態，而不是直接替她做決定。</p>
       <div class="flow" role="list">
         <div class="flow-row" role="listitem">
           <div class="flow-step">1. 報名與同意書</div>
@@ -533,8 +533,8 @@
         </div>
         <div class="flow-row" role="listitem">
           <div class="flow-step">5. 派案與電訪追蹤</div>
-          <div>有意願者由相關窗口派案給引導員。引導員完成第一次聯繫與電訪後，思宜要檢查電訪結果、評論與 InfoCenter 背景欄位是否一致。</div>
-          <div class="flow-action">痛點：20 多位引導員不一定主動回報。</div>
+          <div>有意願者由相關窗口派案給引導員。引導員完成第一次聯繫與電訪後，思宜要檢查電訪結果、評論與 InfoCenter 背景欄位是否一致，並把對應狀態填回 Google Sheet，作為引導員通知與後續追蹤依據。</div>
+          <div class="flow-action">痛點：20 多位引導員不一定主動回報，Google Sheet 也可能漏填或延遲。</div>
         </div>
         <div class="flow-row" role="listitem">
           <div class="flow-step">6. 匯入信扶系統</div>
@@ -587,7 +587,7 @@
       <div class="timeline">
         <div class="phase">
           <strong>Phase 0：盤點與規則定義</strong>
-          <p>整理 InfoCenter 匯出欄位、信扶上傳模板、引導員表、LINE 狀態與歷史紀錄樣本，建立欄位 mapping 與排除規則。</p>
+          <p>整理 InfoCenter 匯出欄位、信扶上傳模板、Google Sheet 引導員通知表、LINE 狀態與歷史紀錄樣本，建立欄位 mapping 與排除規則。</p>
         </div>
         <div class="phase">
           <strong>Phase 1：每日讀取型提醒報告</strong>
@@ -637,13 +637,13 @@
             </tr>
             <tr>
               <td>引導員新完成電訪</td>
-              <td>電訪欄位由引導員更新，且昨日沒有</td>
-              <td>提醒思宜檢查資料</td>
+              <td>InfoCenter 電訪欄位或 Google Sheet 通知狀態出現新完成紀錄</td>
+              <td>提醒思宜檢查資料，並確認兩邊狀態一致</td>
             </tr>
             <tr>
               <td>逾期未完成電訪</td>
-              <td>派案超過規定天數仍無引導員電訪結果</td>
-              <td>催辦或追蹤引導員</td>
+              <td>派案超過規定天數，InfoCenter 無電訪結果或 Google Sheet 尚未更新</td>
+              <td>催辦或追蹤引導員，必要時補更新通知表</td>
             </tr>
             <tr>
               <td>欄位/評論衝突</td>
@@ -661,7 +661,7 @@
         <article class="card">
           <span class="tag green">先做</span>
           <h3>Google Sheet / Excel 版提醒儀表板</h3>
-          <p>每天把匯出檔與引導員表放入固定資料夾，Codex 比對昨日快照並產出報告。優點是權限風險低、容易核對規則。</p>
+          <p>每天把 InfoCenter 匯出檔與 Google Sheet 引導員通知表放入固定資料夾，Codex 比對昨日快照並產出報告。優點是權限風險低、容易核對規則。</p>
         </article>
         <article class="card">
           <span class="tag teal">MVP 後</span>
@@ -696,7 +696,7 @@
             <tr>
               <td>P0</td>
               <td>每日引導員電訪變更/逾期提醒</td>
-              <td>思宜明確說目前沒有時間追，且引導員不主動回報。</td>
+              <td>思宜明確說目前沒有時間追，且引導員不主動回報；電訪結果還需要同步 Google Sheet 通知表。</td>
             </tr>
             <tr>
               <td>P0</td>
@@ -730,6 +730,7 @@
         <li>歷史紀錄是否能看到更新者、更新時間、更新欄位、更新前後值？</li>
         <li>哪些帳號或角色算是引導員？哪些算是思宜或內部人員？</li>
         <li>引導員完成電訪的精準條件是什麼？</li>
+        <li>Google Sheet 引導員通知表的欄位、更新責任與完成狀態定義是什麼？</li>
         <li>逾期規則是派案後 7 天、第一次聯繫後 7 天，還是其他日期基準？</li>
         <li>信扶上傳模板的固定欄位與必填欄位有哪些？</li>
         <li>哪些匯入欄位需要人工判斷，不能完全 mapping？</li>
