@@ -397,6 +397,7 @@
         <a href="#current-workflow">現況</a>
         <a href="#automation">Codex 任務</a>
         <a href="#optimization">優化</a>
+        <a href="#assist-items">協助項目</a>
         <a href="#solutions">解法</a>
         <a href="#questions">待確認</a>
       </div>
@@ -578,6 +579,61 @@
           <h3>先做讀取型 MVP</h3>
           <p>第一階段只產出報告與上傳檔，不改外部系統；用 1 至 2 週核對誤報與漏報，再決定是否進入半自動回寫。</p>
         </article>
+      </div>
+    </section>
+
+    <section id="assist-items">
+      <h2>可協助項目與資料準備</h2>
+      <p class="section-kicker">以下把可協助的方向轉成可執行模組。第一性原則是先確認資料來源、觸發條件與輸出物，讓 Codex 只做清單、判斷輔助與檔案產出；外部寫入與正式通知仍保留人工確認。</p>
+      <div class="priority-table">
+        <table>
+          <thead>
+            <tr>
+              <th>可協助項目</th>
+              <th>觸發時機</th>
+              <th>資料來源</th>
+              <th>輸出物</th>
+              <th>需要準備</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>每日讀取 InfoCenter 案件狀態與新增個案</td>
+              <td>每日固定時間，或思宜手動執行</td>
+              <td>InfoCenter API，資料範圍限「馴錢師財商顧問股份有限公司」單位內案件</td>
+              <td>新增個案、狀態變更、待追蹤清單</td>
+              <td>API base URL、認證方式、單位 ID、案件列表與詳情欄位</td>
+            </tr>
+            <tr>
+              <td>特殊欄位初步判斷與動作建議</td>
+              <td>新增個案或欄位更新後</td>
+              <td>InfoCenter 個案欄位、歷史紀錄、思宜提供的規則</td>
+              <td>例如警示帳戶需電話、特殊境遇需問公文、資料衝突需補問</td>
+              <td>思宜列出哪些特殊欄位會觸發哪些動作，以及例外情境</td>
+            </tr>
+            <tr>
+              <td>說明會前整理未參加名單</td>
+              <td>說明會前一天或指定時間</td>
+              <td>InfoCenter 說明會報名/參加狀態、同意書與 LINE 狀態</td>
+              <td>未參加說明會名單表格，含聯繫資訊、目前狀態、建議聯繫話術</td>
+              <td>說明會場次 ID、日期區間、未參加定義、表格欄位格式</td>
+            </tr>
+            <tr>
+              <td>派案後定期檢查引導員完成狀態</td>
+              <td>派案後每日或每週固定排程</td>
+              <td>InfoCenter 派案/電訪欄位、Google Sheet 引導員通知表</td>
+              <td>完成、逾期、待補欄位、InfoCenter 與 Google Sheet 不一致清單</td>
+              <td>派案日期欄位、逾期規則、Google Sheet 欄位、哪些狀態可自動更新</td>
+            </tr>
+            <tr>
+              <td>產生信扶系統可匯入檔案</td>
+              <td>思宜指定匯入名單與範圍後</td>
+              <td>InfoCenter 個案資料、信扶上傳模板、欄位 mapping</td>
+              <td>符合信扶模板的 Excel/CSV 檔，另附缺值與需人工確認清單</td>
+              <td>信扶模板、可匯入規則、固定範圍空間、欄位轉換規則</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
