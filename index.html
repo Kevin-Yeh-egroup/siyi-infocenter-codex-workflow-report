@@ -398,6 +398,7 @@
         <a href="#automation">Codex 任務</a>
         <a href="#optimization">優化</a>
         <a href="#assist-items">協助項目</a>
+        <a href="#codex-teaching">教學準備</a>
         <a href="#solutions">解法</a>
         <a href="#questions">待確認</a>
       </div>
@@ -631,6 +632,117 @@
               <td>InfoCenter 個案資料、信扶上傳模板、欄位 mapping</td>
               <td>符合信扶模板的 Excel/CSV 檔，另附缺值與需人工確認清單</td>
               <td>信扶模板、可匯入規則、固定範圍空間、欄位轉換規則</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="codex-teaching">
+      <h2>Codex 教學準備</h2>
+      <p class="section-kicker">這一段保留給後續課程講綱使用，重點是讓同仁理解：Codex 先處理讀取、比對、整理、產出；涉及對外通知、正式系統寫入與個案判斷時，保留人工確認。</p>
+
+      <h3>上述需求如果用 Codex 要怎麼做</h3>
+      <div class="priority-table">
+        <table>
+          <thead>
+            <tr>
+              <th>需求場景</th>
+              <th>Codex 做法</th>
+              <th>需要先準備</th>
+              <th>需要人工確認</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>每日讀 InfoCenter 狀態與新增個案</td>
+              <td>每日讀取單位內案件，和前一天快照比對，整理新增個案、狀態變更、待追蹤清單。</td>
+              <td>InfoCenter API、認證方式、單位 ID、案件列表與狀態定義。</td>
+              <td>確認清單符合實際工作情境，不直接對外通知。</td>
+            </tr>
+            <tr>
+              <td>特殊欄位判斷</td>
+              <td>依思宜提供的規則，標示警示帳戶、特殊境遇、欄位衝突與缺漏資料，並附上原因。</td>
+              <td>特殊欄位清單、觸發條件、對應動作、例外規則、優先順序。</td>
+              <td>個案專業判斷與下一步聯繫仍由人決定。</td>
+            </tr>
+            <tr>
+              <td>說明會前名單</td>
+              <td>說明會前讀取報名、同意書、LINE 驗證與參加狀態，整理未參加或尚未確認的人。</td>
+              <td>說明會場次、日期區間、未參加定義、輸出表格欄位。</td>
+              <td>確認名單後再由思宜聯繫。</td>
+            </tr>
+            <tr>
+              <td>引導員電訪追蹤</td>
+              <td>派案後定期讀 InfoCenter 電訪欄位與 Google Sheet，引導出已完成、逾期、缺資料、狀態不一致。</td>
+              <td>派案日、完成期限、電訪完成欄位、Google Sheet 欄位、可自動更新欄位。</td>
+              <td>自動更新前要確認可寫回欄位，並保留更新紀錄。</td>
+            </tr>
+            <tr>
+              <td>信扶匯入檔案產出</td>
+              <td>依信扶模板與欄位 mapping，從 InfoCenter 抓資料後產生 Excel/CSV，另附缺值與需確認清單。</td>
+              <td>信扶匯入模板、欄位 mapping、格式規則、必填欄位、固定範圍空間。</td>
+              <td>匯入前抽樣核對，並先用測試資料驗證。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>可能會用到的 Codex 功能清單</h3>
+      <div class="priority-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Codex 功能</th>
+              <th>在思宜案例中的用法</th>
+              <th>課程講法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>API 讀取</td>
+              <td>讀 InfoCenter 案件、個案狀態、同意書、說明會、派案與電訪欄位。</td>
+              <td>讓 Codex 讀系統資料，但先從 read-only 開始。</td>
+            </tr>
+            <tr>
+              <td>資料快照比對</td>
+              <td>比對今天與昨天有哪些新增個案或狀態變更。</td>
+              <td>把「每天人工一直看」改成「有變化才提醒」。</td>
+            </tr>
+            <tr>
+              <td>AI 初步分類</td>
+              <td>判斷警示帳戶、特殊境遇、欄位衝突、缺漏資料、逾期狀態。</td>
+              <td>AI 先幫忙分流，人負責最後判斷。</td>
+            </tr>
+            <tr>
+              <td>Google Sheet 讀寫</td>
+              <td>讀取與更新引導員通知表、狀態欄、備註欄。</td>
+              <td>可以自動更新，但要先講清楚哪些欄位能改。</td>
+            </tr>
+            <tr>
+              <td>Excel/CSV 產生</td>
+              <td>依照信扶模板產出匯入檔案。</td>
+              <td>把複製貼上與刪欄位變成模板化產出。</td>
+            </tr>
+            <tr>
+              <td>排程 automation</td>
+              <td>每天、說明會前、派案後固定檢查。</td>
+              <td>Codex 可以固定時間幫忙檢查，不需要每天想起來。</td>
+            </tr>
+            <tr>
+              <td>報告發布</td>
+              <td>產出 Markdown 或 HTML，讓需求、流程、規則跨裝置查看。</td>
+              <td>適合需求討論與教學展示。</td>
+            </tr>
+            <tr>
+              <td>權限安全檢查</td>
+              <td>檢查 API token、個資、公開範圍、外部寫入權限。</td>
+              <td>先讀資料，再決定能不能自動寫入。</td>
+            </tr>
+            <tr>
+              <td>人工審核點</td>
+              <td>對外通知、個案判斷、正式系統異動前確認。</td>
+              <td>Codex 負責準備，人負責決策。</td>
             </tr>
           </tbody>
         </table>
